@@ -36,6 +36,7 @@
 * Hit <code>Create</code>
 
 ### :mortar_board: Requirements
+After creating, the project will open. From the bottom, click on <code>Terminal</code>. Then:
 * <code>conda install numba</code>
 * <code>pip install librosa</code>
 * <code>pip install matplotlib</code>
