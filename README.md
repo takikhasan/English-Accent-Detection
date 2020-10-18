@@ -45,7 +45,7 @@
 
 ## :scroll: Folder Structure & Code
 * Copy and paste all three <code>Python</code> scripts from this repository to the <code>PyCharm</code> project folder you just created
-* Copy and paste the folder <code>Full Dataset wav</code> from this [link](https://www.codewithc.com/how-to-setup-opengl-glut-in-codeblocks/) to the same <code>PyCharm</code> project folder
+* Copy and paste the folder <code>Full Dataset wav</code> from this [link](https://drive.google.com/drive/folders/115Ke1X5BEkvP26g8k77dlgO-_tR7vQGg?usp=sharing) to the same <code>PyCharm</code> project folder
 
 ## :star2: Running The Project
 * Use <code>Alt+Shift+F10</code> from inside <code>PyCharm</code> to run each file in the following order
