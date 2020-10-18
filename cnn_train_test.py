@@ -98,7 +98,7 @@ def build_model(input_shape):
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Conv2D(32, kernel_size=5, strides=2, padding='same', activation='relu'))
     model.add(keras.layers.BatchNormalization())
-    model.add(keras.layers.Dropout(0.4))
+    model.add(keras.layers.Dropout(0.5))
 
     # 2nd conv layer
     model.add(keras.layers.Conv2D(64, kernel_size=3, activation='relu', input_shape=input_shape))
@@ -107,13 +107,13 @@ def build_model(input_shape):
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.Conv2D(64, kernel_size=5, strides=2, padding='same', activation='relu'))
     model.add(keras.layers.BatchNormalization())
-    model.add(keras.layers.Dropout(0.4))
+    model.add(keras.layers.Dropout(0.5))
 
     # flatten output and feed it into dense layer
     model.add(keras.layers.Flatten())
     model.add(keras.layers.Dense(128, activation='relu'))
     model.add(keras.layers.BatchNormalization())
-    model.add(keras.layers.Dropout(0.4))
+    model.add(keras.layers.Dropout(0.5))
 
     # output layer
     model.add(keras.layers.Dense(9, activation='softmax'))
