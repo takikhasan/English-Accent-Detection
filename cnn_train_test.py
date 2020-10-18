@@ -5,6 +5,7 @@ import tensorflow.keras as keras
 import matplotlib.pyplot as plt
 
 DATA_PATH = "data.json"
+MODEL_PATH = "model.h5"
 
 
 def load_data(data_path):
@@ -20,6 +21,7 @@ def load_data(data_path):
 
     X = np.array(data["mfcc"])
     y = np.array(data["labels"])
+
     return X, y
 
 
@@ -90,24 +92,28 @@ def build_model(input_shape):
     model = keras.Sequential()
 
     # 1st conv layer
-    model.add(keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape))
-    model.add(keras.layers.MaxPooling2D((3, 3), strides=(2, 2), padding='same'))
+    model.add(keras.layers.Conv2D(32, kernel_size=3, activation='relu', input_shape=input_shape))
     model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Conv2D(32, kernel_size=3, activation='relu'))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Conv2D(32, kernel_size=5, strides=2, padding='same', activation='relu'))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dropout(0.4))
 
     # 2nd conv layer
-    model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
-    model.add(keras.layers.MaxPooling2D((3, 3), strides=(2, 2), padding='same'))
+    model.add(keras.layers.Conv2D(64, kernel_size=3, activation='relu', input_shape=input_shape))
     model.add(keras.layers.BatchNormalization())
-
-    # 3rd conv layer
-    model.add(keras.layers.Conv2D(32, (2, 2), activation='relu'))
-    model.add(keras.layers.MaxPooling2D((2, 2), strides=(2, 2), padding='same'))
+    model.add(keras.layers.Conv2D(64, kernel_size=3, activation='relu'))
     model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Conv2D(64, kernel_size=5, strides=2, padding='same', activation='relu'))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dropout(0.4))
 
     # flatten output and feed it into dense layer
     model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(64, activation='relu'))
-    model.add(keras.layers.Dropout(0.3))
+    model.add(keras.layers.Dense(128, activation='relu'))
+    model.add(keras.layers.BatchNormalization())
+    model.add(keras.layers.Dropout(0.4))
 
     # output layer
     model.add(keras.layers.Dense(9, activation='softmax'))
@@ -124,7 +130,7 @@ def predict(model, X, y):
     """
 
     # add a dimension to input data for sample - model.predict() expects a 4d array in this case
-    X = X[np.newaxis, ...] # array shape (1, 130, 13, 1)
+    X = X[np.newaxis, ...]  # array shape (1, 130, 13, 1)
 
     # perform prediction
     prediction = model.predict(X)
@@ -136,7 +142,6 @@ def predict(model, X, y):
 
 
 if __name__ == "__main__":
-
     # get train, validation, test splits
     X_train, X_validation, X_test, y_train, y_validation, y_test = prepare_datasets(0.25, 0.2)
 
@@ -153,7 +158,10 @@ if __name__ == "__main__":
     model.summary()
 
     # train model
-    history = model.fit(X_train, y_train, validation_data=(X_validation, y_validation), batch_size=32, epochs=30)
+    history = model.fit(X_train, y_train, validation_data=(X_validation, y_validation), batch_size=32, epochs=100)
+
+    # save model
+    model.save(MODEL_PATH)
 
     # plot accuracy/error for training and validation
     plot_history(history)
@@ -168,4 +176,3 @@ if __name__ == "__main__":
 
     # predict sample
     predict(model, X_to_predict, y_to_predict)
-
