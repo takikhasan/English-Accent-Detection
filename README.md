@@ -44,11 +44,11 @@
 * <code>pip install easygui</code>
 
 ## :scroll: Folder Structure & Code
-* Copy and paste all three scripts from this repository to the <code>PyCharm</code> project folder you just created
+* Copy and paste all three <code>Python</code> scripts from this repository to the <code>PyCharm</code> project folder you just created
 * Copy and paste the folder <code>Full Dataset wav</code> from this link to the same <code>PyCharm</code> project folder
 
 ## :star2: Running The Project
 * Use <code>Alt+Shift+F10</code> from inside <code>PyCharm</code> to run each file in the following order
 * Run <code>prepare_dataset.py</code> to preprocess the dataset and create a <code>json</code> file with all processed data
 * Run <code>cnn_train_test.py</code> to train the CNN model and save it
-* Run <code>predict.py</code> to load the saved CNN model and use it to classify any file using the file explorer
+* Run <code>predict.py</code> to load the saved CNN model and use it to classify any file selected using the file explorer
